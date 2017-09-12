@@ -1,3 +1,141 @@
+# 1 File 类
+当我们需要获取磁盘上文件的有关信息或在磁盘上创建新的文件等，就需要使用 File 类。File 类主要用来获取文件本身的一些信息。例如：文件所在的目录，文件长度，文件的读取权限等，不涉及对文件的读写操作。
+
+该类在 `java.io.File`。
+
+    public class File extends Object implements Serializable,Comparable<File>
+
+## 1.1 构造方法
+1. public File(String pathname)
+
+  参数：
+  pathname -路径名字符串
+  异常：
+  当 pathname 为 null 时出现 NullPointerException 异常。
+  通过将给定的路径名字符串转换为抽象路径名来创建新的 File 实例。如果给定的字符串是空字符串，则结果为空的抽象路径名。使用该方法进行创建文件时，默认与当前应用程序在同一个目录中。
+
+2. public File(String parent,String child)
+
+  参数：
+  parent -父路径名字符串（文件路径）
+  child -子路径名字符串（文件名字)
+  异常：
+  当 child 为 null 时出现 NullPointerException。
+  从父路径名字符串和子路径名字符串创建新的 File 实例。若 parent 是 null 则创建新的 File 实例，就像在给定的 chile 路径名字字符串上调用单参数 File 构造函数一样。否则，将使用 parent 路径名字符串来表示目录，并将 chile 路径名字符串用于表示目录或文件。如果 child 路径名字符串是绝对的，那么它将以系统相关的方式转换为相对路径名。如果 parent 是空字符串则通过将 child 转换为抽象路径名并根据系统相关的默认目录解析结果来创建新的 File 实例。否则，每个路径名字符串将转换为抽象路径名，并且子抽象路径名将针对父亲对象进行解析。
+
+3. public File(File parent,String child)
+
+  参数：
+  parent -父抽象路径名（目录）
+  child -子路径名字符串（文件名字）
+  异常：
+  当 child 为 null 时出现 NullPointerException。
+
+## 1.2 文件创建与删除
+当使用 File 类的构造方法生成一个对象后，例如：
+
+    File file=new File("E://workspace","Java.txt");
+若在 E://workspace 目录中没有名字为 Java.txt 文件，文件对象 file 调用方法：
+
+    public boolean createNewFile() throws IOException;
+可以在 E://workspace 目录中创建 Java.txt 文件。当想删除该文件时，调用方法：
+
+    public boolean delete();//删除成功返回 true,失败返回 false。
+可以删除当前文件。
+
+## 1.3 获取文件属性
+可以使用 File 类的下列方法来获取文件本身的一些信息：
+
+    public String getName()//获取文件名
+    public boolean canRead()//判断文件是否可读
+    public boolean canWrite()//判断文件是否可写
+    public boolean exists()//判断文件是否存在
+    public long length()//获取文件的长度
+    public String getAbsolutepath()//获取文件的绝对路径
+    public String getParent()//获取文件的父目录
+    public boolean isFile()//判断一个文件是否为一个普通文件，而不是目录
+    public boolean isDirectory()//判断文件是否是一个目录
+    public boolean isHidden()//判断文件是否是隐藏文件
+    public long lastModified()//获取文件最后修改的时间（时间是从 1970 年 00:00:00 至文件最后修改时刻的毫秒数）
+
+## 1.4 目录
+1. 创建目录
+
+  File 对象调用方法 `public boolean mkdir()` 创建一个目录如果创建成功返回 true。否则返回 false（目录存在同样返回 false）。
+
+2. 列出目录中的文件
+
+  若 File 对象是一个目录，那么该对象可以调用下列方法列出该目录下的文件和目录。
+
+        public String[] list()//用字符串形式返回目录下的全部文件
+        public File[] listFiles()//用 File 对象形式返回目录下的全部文件
+
+  当我们想要列出目录下指定类型的文件，例如：“.java”、“.txt” 等扩展名的文件，可以使用以下两个方法：
+
+        public String[] list(FilenameFilter obj)//用字符串形式返回目录下指定类型的所有文件
+        public File[] listFiles(FilenameFilter obj)//用 File 对象返回目录下指定类型的所有文件
+
+  上述两个方法的参数 FilenameFilter 是一个接口，该接口有一个方法：
+
+        public boolean accept(File dir,String name);
+
+  使用 list() 方法时，需要该方法传递一个实现 FileInputStream 接口的对象，执行 list() 方法时，参数 obj 不断回调接口方法 accept(File dir,String name),该方法中的参数 dir 为调用 list 的当前目录，参数 name 为实例化目录中的一个文件名，若 name 文件名满足条件，则返回 true,list() 就将该文件放入目标数组中，最后将该数组返回。
+
+  例如：
+
+    import java.io.File;
+    import java.io.FilenameFilter;
+
+    public class Example {
+
+    public static void main(String[] args) {
+      File file=new File("E://java");
+      boolean b=file.mkdir();
+      if(b==true){
+        System.out.print("创建成功！");
+      }else{
+        System.out.println("创建失败！");
+      }
+      String a[]=file.list();
+      for(String t:a){
+        System.out.println(t);
+      }
+      File f[]=file.listFiles();
+      for(File list:f){
+        System.out.println(list);
+      }
+      Filename fileNmae=new Filename();
+      fileNmae.setExtendName("java");//设置文件后缀为java
+      String b1[]=file.list(fileNmae);
+      for(String t:b1){
+        System.out.println(t);
+      }
+    }
+
+    }
+    class Filename implements FilenameFilter{
+      private String extendName;//文件后缀
+      //设置返回的文件类型
+      public void setExtendName(String s){
+        extendName="."+s;
+      }
+      public boolean accept(File dir, String name) {
+        return name.endsWith(extendName);
+      }
+
+    }
+
+## 1.5 运行可执行文件
+当要执行一个本地上的可执行文件时，可以使用 `java.lang` 包中的 Runtime 类，首先声明一个对象：
+
+    Runtime runTime;
+
+然后使用该类的静态方法 getRuntime() 得到一个 Runtime 对象。
+
+    rumTime=Runtime.getRuntime();
+
+最后使用对象 runTime 调用 exec(String command) 方法打开本地的可执行文件，参数 command 表示可执行文件的绝对路径。
+
 # InputStream 和 OutputStream
 ## InputStream
     public abstract class InputStream extends Object implements Closeable{}
@@ -373,7 +511,7 @@ BufferedWriter 常用方法摘要：
 
 2. write(int c) 方法
         public void write(int c) throws IOException
-  
+
 3. write(char[] cbuf,int off,int len) 方法
         public void write(char[] cbuf,int off,int len) throws IOException
 

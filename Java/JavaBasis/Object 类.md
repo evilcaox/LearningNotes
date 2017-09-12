@@ -7,8 +7,7 @@ Object 类中的方法，适合所有子类。
 
 几个常用的 Object 类中的方法：
 1. toString()方法
->在 Object 类里面定义 toString() 方法的时候返回对象的哈希 code 码(对象地址字符串),可
-以通过重写 toString() 方法表示出对象的属性。
+>在 Object 类里面定义 toString() 方法的时候返回对象的哈希 code 码(对象地址字符串),形式一般为 `创建对象的类的名字@对象的引用的字符串表示` 可以通过重写 toString() 方法表示出对象的属性。
        class StringTest{
          String s="Hello";
        }
