@@ -136,8 +136,10 @@
 
 最后使用对象 runTime 调用 exec(String command) 方法打开本地的可执行文件，参数 command 表示可执行文件的绝对路径。
 
-# InputStream 和 OutputStream
-## InputStream
+# 2 字节流和字符流
+Java 把 InputStream 抽象类的子类创建的流对象称为字节输入流，OutputStream 抽象类的子类创建的流对象称为字节输出流；Java 把 Reader 抽象类的子类创建的流对象称为字符输入流，Writer 抽象类的子类创建的流对象称为字符输出流。
+## 2.1 InputStream 和 OutputStream
+### 2.1.1 InputStream
     public abstract class InputStream extends Object implements Closeable{}
 
 接口 `Closeable` 内有一个 `void close()` 方法，该方法关闭此流并释放与它相关联的任何系
@@ -185,7 +187,7 @@ InputStream 的主要方法摘要:
 
   关闭此输入流并释放与流相关联的任何系统资源。
 
-### FileInputStream
+#### 2.1.1.1 FileInputStream
     public class FileInputStream extends InputStream
 
 FileInputStream 是 InputStream 的一个直接子类，可以从一个文件系统中的文件获得输入的字
@@ -249,7 +251,7 @@ FileInputStream 中的主要方法摘要：
     有一个 a ,则输出为 97 0 0 ……  后面的  0 在不同系统中有不同表示。表示的是空子符。因
     为只读到一个 a，所以其他位置为空子符。
 
-# OutputStream
+### 2.1.2 OutputStream
     public abstract class OutputStream extends Object implements Closeable,Flushable
 
 该抽象类是所有类的字节输出流的父类，输出流接受输出字节，并将他们发送到一些接收器。
@@ -271,7 +273,7 @@ OutputStream 常用方法摘要；
         off 偏移量，表示从数组的那一位开始写
         len 字节数，表示写入多少位
 
-## FileOutputStream
+#### 2.1.2.1 FileOutputStream
     public class FileOutputStream extends OutputStream
 
 文件输出流是一个 File 或一个 FileDescriptor 数据写入输出流。书写字节流，若使用字符流，
@@ -326,7 +328,20 @@ FileOutputStream 常用方法摘要：
     除了与 FileInputStream 中例子相同与外，还在 E:/workspace/java 目录下新建了一个bytein.txt
     文件并将 byte.txt 中的内容写入。
 
-# FileReader
+## 2.2 Reader 和 Writer 类
+Reader 类提供的 read() 方法以字符为单位顺序地读取源中的数据，只要不关闭流，每次调用 read() 方法就顺序地读取源中的其余内容，直至源末尾或输入流被关闭。Reader 类常用方法如下：
+
+    int read()//输入流调用该方法从源中读取一个字符，该字符返回一个整数（0~65535 之间的一个整数，Unicode 字符值），如果未读出字符，则返回 -1；
+    int read(char b[])//输入流调用该方法从源中读取 b.length 个字符到字符数组 b 中，返回实际读取字符数目。若到达文件的末尾，则返回 -1；
+    read(char[] cbuf,int offset,int length)//从 cbuf 数组的 offset 处开始存储 length 个字符。
+    void close()//输入流调用该方法关闭输入流
+Writer 流以字符为单位顺序地写文件，只要不关闭流，每次调用 write() 方法就顺序地向目的地写入内容，直到流被关闭。Writer 类有如下常用的方法：
+
+     void write(int n)//向输出流写入一个字符
+     void write(byte b[])//向输出流写入一个字符数组
+     void write(byte b[],int off,int length)//从给定字符数组中的 off 处开始向输出流写入 length 个字符
+     void close()//关闭输出流。
+### 2.2.1 FileReader
     public class FileReader extends InputStreamReader
 用于读取字符文件的方便类。该类的构造方法假定默认字符编码和默认字节缓冲区大小是适当的。
 
@@ -377,7 +392,7 @@ FileReader 从文件中读入的数据存储在 char 数组中。
     执行结果：
     打印 E:/workspace/java/byte.txt 中的内容。
 
-# FileWriter
+### 2.2.2 FileWriter
     public class FileWriter extends OutputStreamWriter
 用于写入字符文件的方便类。该类的构造方法假定默认字符编码和默认字节缓冲区大小是可以接受的。
 FileWriter 是书写字符流。
@@ -440,7 +455,9 @@ FileWriter 常用方法摘要：
     执行结果：
     在 E:/workspace/java/bytein.txt 中写入 hello word
 
-# BufferedReader
+# 3 缓冲流
+BufferReader 和 BufferWriter 类创建的对象称为缓冲输入/输出流，二者增强了读写文件的能力，可以一次读取一行。但是他们的源和目的地必须是字符输入/输出流。
+## 3.1 BufferedReader
     public class BufferedReader extends Reader
 从一个字符输入流中读取文本，缓冲字符，以便提供字符、数组和行的有效读取。
 
@@ -500,7 +517,7 @@ BufferedReader 常用方法摘要：
     李四 50
     王二 80
 
-# BufferedWriter
+## 3.2 BufferedWriter
     public class BufferedWriter extends Writer
 将文本写入到字符输出流中，缓冲字符，以便对单个字符、数组和字符串的有效写入/
 
@@ -558,3 +575,60 @@ BufferedWriter 常用方法摘要：
     在 E:/workspace/java/bytein.txt 文件中写入：
     zhangsan
     lisi
+
+# 4 随机流
+RandomAccessFile 类创建的流称为随机流。既可以读文件也可以写文件。该类位于 `java.io.RandomAccessFile`。
+
+    public class RandomAccessFile extends Object implements DataInput,Closeable
+
+## 4.1 构造方法
+1. public RandomAccessFile(File file,String mode) throws FileNotFoundException
+
+  参数：
+  file -文件对象
+  mode -访问模式。取值 “r”（只读）、“rw”(可读写)
+
+2. public RandomAccessFile(String name,String mode) throws FileNotFoundException
+
+  参数：
+  name -与系统相关的文件名
+  mode -访问模式
+
+## 4.2 常用方法
+|方法|描述|
+|-|-|
+|close()|关闭文件|
+|getFilePointer()|获取当前读写位置|
+|length()|获取文件的长度|
+|read()|从文件中读取一个字节的数据|
+|readBoolean()|从文件中读取一个布尔值，0 代表 false，其他值表示 true|
+|readByte()|从文件中读取一个字节|
+|readChar()|从文件中读取一个字符（2 个字节）|
+|readDouble()|读取一个双精度浮点值（8字节）|
+|readFloat()|读取一个单精度浮点值（4 字节）|
+|readFully(byte b[])|读 b.length 字节放入数组 b|
+|readInt()|读取一个 int 值（4 个字节）|
+|readLine()|读取一个文本行|
+|readLong()|从文件中读取一个长型值（8 字节）|
+|readShort()|从文件读取一个短型值（2 个字节）|
+|readUnsignedByte()|读取一个无符号字节（1 字节）|
+|readUnsignedShort()|读取一个无符号短型值（2 字节）|
+|readUTF()|读取一个 UTF 字符串|
+|seek(long position)|定位读写位置|
+|setLength(long newlength)|设置文件的长度|
+|skipBytes(int n)|在文件中跳过给定数量的字节|
+|write(byte b[])|写 b.length 个字节到文件|
+|writeBoolean(boolean v)|把一个布尔值作为单字节值写入文件|
+|writeByte(int v)|向文件写入一个字节|
+|writeBytes(String s)|向文件写入一个字符串|
+|writeChar(char c)|向文件写入一个字符|
+|writeChars(String s)|向文件写入一个作为字符数据的字符串|
+|writeDouble(double v)|向文件写入一个双精度浮点值|
+|writeFloat(float v)|向文件写入一个单精度浮点值|
+|writeInt(int v)|向文件写入一个int值|
+|writeLong(long v)|向文件写入一个长型 int 值|
+|writeShort(int v)|向文件写入一个短型 int 值|
+|writeUTF(String s)|写入一个 UTF 字符串|
+
+# 5 文件锁
+经常出现几个程序处理同一个文件的情况，例如同时更新或读取文件。应对这样的问题我们可以使用文件锁。
