@@ -328,6 +328,35 @@ FileOutputStream 常用方法摘要：
     除了与 FileInputStream 中例子相同与外，还在 E:/workspace/java 目录下新建了一个bytein.txt
     文件并将 byte.txt 中的内容写入。
 
+#### 2.1.3 DataInputStream 和 DataOutputStream
+DataInputStream 和 DataOutputStream 被称为数据流，这两个类继承至 FilterInputStream 与 FilterOutputStream。而 FilterInputStream 与 FilterOutputStream 则继承至 InputStream 和 OutputStream。
+
+DataInputStream 和 DataOutputStream 类创建的对象称为数据输入流和数据输出流。这两个流允许程序按机器无关的风格读取 Java 原始数据。也就是说，当读取一个数值时，不必关系这个数值应当是多少个字节。
+
+以下是 DataInputStream 和 OutputStream 类的构造方法：
+
+    DataInputStream(InputStream in)//方法创建的数据输入流指向一个由参数 in 指定的底层输入流
+    DataOutputStream(InputStream out)//方法创建的数据输出流指向一个由参数 out 指定的底层输出流
+
+DataInputStream 和 DataOutputStream 常用方法：
+
+|DataInputStream方法|描述|DataOutputStream方法|描述|
+|-|-|-|-|
+|close()|关闭流|close()|关闭流|
+|skipBytes(int n)|跳过给定数量的字节|skipBytes(int n)|跳过给定数量的字节|
+|readBoolean()|读取一个布尔值|writeBoolean(boolean b)|写入一个布尔值|
+|readByte()|读取一个字节|writeBytes(String s)|写入一个字符串|
+|readChar()|读取一个字符|writeChars(String s)|写入一个字符串|
+|readDouble()|读取一个双精度浮点值|writeDouble(doube d)|写入一个双精度浮点值|
+|readFloat()|读取一个单精度浮点值|writeFloat(float f)|写入一个单精度浮点值|
+|readInt()|读取一个 int 值|writeInt(int v)|写入一个 int 值|
+|readLong()|读取一个长型值|writeLong(long v)|写入一个长型值|
+|readShort()|读取一个短型值|writeShort(int v)|写入一个短型值|
+|readUTF()|读取一个 UTF 字符串|writeUTF(String s)|写入一个 UTF 字符串|
+|readUnsignedByte()|读取一个无符号字节|||
+|readUnsignedShort()|读取一个无符号短型值|||
+
+
 ## 2.2 Reader 和 Writer 类
 Reader 类提供的 read() 方法以字符为单位顺序地读取源中的数据，只要不关闭流，每次调用 read() 方法就顺序地读取源中的其余内容，直至源末尾或输入流被关闭。Reader 类常用方法如下：
 
