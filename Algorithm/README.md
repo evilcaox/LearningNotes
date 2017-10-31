@@ -1,10 +1,10 @@
 # 1. 交换排序
-## 1.1 冒泡排序
-## 1.2 快速排序
+## 1.1 [冒泡排序](https://github.com/evilcaox/LearningNotes/blob/master/Algorithm/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F.md)
+## 1.2 [快速排序](https://github.com/evilcaox/LearningNotes/blob/master/Algorithm/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F.md)
 # 2. 插入排序
-## 2.1 直接插入排序
-## 2.2 折半插入排序
+## 2.1 [直接插入排序](https://github.com/evilcaox/LearningNotes/blob/master/Algorithm/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F.md)
+## 2.2 [折半插入排序](https://github.com/evilcaox/LearningNotes/blob/master/Algorithm/%E6%8A%98%E5%8D%8A%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F.md)
 # 3. 选择排序
-## 3.1 简单选择排序
+## 3.1 [简单选择排序](https://github.com/evilcaox/LearningNotes/blob/master/Algorithm/%E7%AE%80%E5%8D%95%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F.md)
 # 4. 查找
-## 4.1 折半查找
+## 4.1 [折半查找](https://github.com/evilcaox/LearningNotes/blob/master/Algorithm/%E6%8A%98%E5%8D%8A%E6%9F%A5%E6%89%BE.md)
