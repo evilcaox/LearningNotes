@@ -16,7 +16,7 @@
 
 # 类集框架的基础结构
 
-# Iterabl<T>
+# Iterable<T>
     public interface Iterable<T>
     参数类型：
     通过返回的迭代器 T-元素类型
