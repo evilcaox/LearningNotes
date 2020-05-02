@@ -1,0 +1,106 @@
+# GitHub Git快速入门表
+Git是开源分布式版本控制系统，下面总结了常用的Git命令行，便于参考。
+
+1. 配置工具
+> 配置所有本地存储库的用户信息。
+ * 设置您要附加到提交事务的名称</br>
+ `$ git config --global user.name”[name]”`
+ * 设置您要附加到您的提交事务的电子邮件<br>
+ `$ git config --global user.email”[email address]”`
+ * 使命令行输出有用的着色</br>
+`$ git config --global color.ui auto`
+
+2. 创建报告
+> 启动新的存储库或从现有的URL获取一个
+  * 使用指定的名称创建新的本地存储库</br>
+  `$ git init [project-name]`
+  * 下载项目及其整个版本历史</br>
+  `$ git clone [url]`
+
+3. 做改变
+> 审查编辑和手工提交交易
+  * 列出要提交的所有新的或修改的文件</br>
+  `$ git status`
+  * 显示尚未分阶段的文件差异</br>
+  `$ git diff`
+  * 快照文件准备版本控制</br>
+  `$ git add [file]`
+  * 显示分段和最后一个文件版本之间的文件差异</br>
+  `$ git diff --staged`
+  * 取消文件，但保留其内容</br>
+  `$ git reset [file]`
+  * 在版本历史记录中永久记录文件快照</br>
+  `$ git commit -m “[descriptive message]”`
+
+4. 团队变更
+> 命名一系列承诺并结合完成的努力
+  * 列出当前存储库中的所有本地分支</br>
+  `$ git branch`
+  * 创建一个新的分支</br>
+  `$ git branch [branch-name]`
+  * 切换到指定的分支并更新工作目录</br>
+  `$ git checkout [branch-name]`
+  * 将指定分支的历史记录合并到当前分支中</br>
+  `$ git merge [branch]`
+  * 删除指定的分支</br>
+  `$ git branch -d [branch-name]`
+
+5. 参考文件
+> 重新定位和删除版本文件
+  * 从工作目录中删除文件，并删除该文件</br>
+  `$ git rm [file]`
+  * 从版本控制中删除文件，但在本地保留文件</br>
+  `$ git rm --cached [file]`
+  * 更改文件名并准备提交</br>
+  `$ git mv [file-original][file-renamed]`
+
+6. 超强追踪
+> 排除临时文件和路径
+  * 名为.gitignore的文本文件可以抑制与指定模式匹配的文件和路径的意外版本</br>
+  ```
+  *.log
+  build/
+  temp-*
+  ```
+  * 列出此项目中所有被忽略的文件</br>
+  `$ git ls-files --other --ignored --exclude-standard`
+
+7. 保存片段
+> 搁置并恢复不完整的更改
+  * 暂时存储所有修改后的跟踪</br>
+  `$ git stash`
+  * 恢复最近被隐藏的文件</br>
+  `$ git stash pop`
+  * 列出所有封闭的变更集</br>
+  `$ git stash list`
+  * 丢弃最近被封锁的变更集</br>
+  `$ git stash drop`
+
+8. 回顾历史
+> 浏览并检查项目文件的演进
+  * 列出当前分支的版本历史</br>
+  `$ git log`
+  * 列出文件的版本历史记录，包括重命名</br>
+  `$ git log --follow [file]`
+  * 显示两个分支之间的内容差异</br>
+  `$ git diff [first-branch]...[second-branch]`
+  * 输出特定提交的元数据和内容更改</br>
+  `$ git show [commit]`
+
+9. 重做承诺
+> 擦除错误和手工更换历史
+  * 在[commit]之后撤消所有提交，在本地保留更改</br>
+  `$ git reset [commit]`
+  * 将所有历史记录和更改丢弃回特定提交</br>
+  `$ git reset --hard [commit]`
+
+10. 同步更改
+> 注册存储库书签并交换版本历史记录
+  * 从存储库书签下载所有历史记录</br>
+  `$ git fetch [bookmark]`
+  * 将书签的分支结合到当前的本地分支</br>
+  `$ git merge [bookmark]/[branch]`
+  * 将所有本地分支提交上传到GitHub</br>
+  `$ git push [alias] [branch]`
+  * 下载书签历史并整合更改</br>
+  `$ git pull`
